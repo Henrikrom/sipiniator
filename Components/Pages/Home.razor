@@ -1,0 +1,23 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+@inject IJSRuntime JS
+
+<h1>SIPinator</h1>
+
+<label>
+    Uri to call:
+    <input type=text id=uri-input @bind=uri>
+</label>
+<button @onclick="DoStuff">Call</button>
+<video id=selfview autoplay playsinline></video>
+
+@code {
+    private string uri = string.Empty;
+
+    private async Task DoStuff()
+    {
+        Console.WriteLine($"Uri: {uri}");
+        await JS.InvokeVoidAsync("startWebCam");
+    }
+}
