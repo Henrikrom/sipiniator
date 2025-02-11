@@ -3,21 +3,31 @@
 
 @inject IJSRuntime JS
 
-<h1>SIPinator</h1>
+<div class="main-container">
+    <div class="call-control shadow">
+        <label class="form-label fw-bold text-primary">
+            Uri to call:
+            <input placeholder="henrik@siplook.com" class="custom-input" type="text" id="uri-input" @bind=uri>
+        </label>
+        <button class="btn btn-danger" @onclick="StartCam">Call</button>
+        <div class="container-lg">
+        </div>
+    </div>
 
-<label>
-    Uri to call:
-    <input type=text id=uri-input @bind=uri>
-</label>
-<button @onclick="DoStuff">Call</button>
-<video id=selfview autoplay playsinline></video>
+    <div class="video-container">
+        <video id="selfview" autoplay playsinline></video>
+    </div>
+</div>
+
 
 @code {
     private string uri = string.Empty;
 
-    private async Task DoStuff()
+    private async Task StartCam()
     {
         Console.WriteLine($"Uri: {uri}");
+
+        await JS.InvokeVoidAsync("startWebCam");
         await JS.InvokeVoidAsync("startWebCam");
     }
 }

@@ -6,8 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(7117); });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,14 +16,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
-//app.UseHttpsRedirection();
-
+app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
 app.MapStaticAssets();
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();
